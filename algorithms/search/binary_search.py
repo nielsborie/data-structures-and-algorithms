@@ -1,39 +1,49 @@
-# Recursive version
-def binary_search_r(arr: list[int], left:int, right: int, target: int) -> int:
-    if left >= right:
+import unittest
+from abc import ABC, abstractmethod
+import sys
+import inspect
+
+
+class AbstractBinarySearch(ABC):
+
+    @abstractmethod
+    def binary_search(self, arr: list[int], x: int):
+        pass
+
+
+class BinarySearchRecursiveVersion(AbstractBinarySearch):
+    def binary_search(self, arr: list[int], x: int):
+        if not arr:
+            return -1
+        return self.binary_search_helper(arr=arr, target=x, left_pointer=0, right_pointer=len(arr)-1)
+
+    def binary_search_helper(self, arr: list[int], target: int, left_pointer: int, right_pointer):
+        if left_pointer > right_pointer:
+            return -1
+        middle_pointer = left_pointer + (right_pointer - left_pointer) // 2
+        if arr[middle_pointer] == target:
+            return middle_pointer
+        elif arr[middle_pointer] > target:
+            return self.binary_search_helper(arr=arr, target=target, left_pointer=left_pointer, right_pointer=middle_pointer - 1)
+        else: 
+            return self.binary_search_helper(arr=arr, target=target, left_pointer=middle_pointer + 1, right_pointer=right_pointer)
+        
+
+
+class BinarySearchIterativeVersion(AbstractBinarySearch):
+    def binary_search(self, arr: list[int], x: int):
+        if not arr:
+            return -1
+        
+        left_idx = 0
+        right_idx = len(arr) - 1
+        
+        while left_idx <= right_idx:
+            middle_index = left_idx + (right_idx - left_idx) // 2
+            if arr[middle_index] == x:
+                return middle_index
+            elif arr[middle_index] > x:
+                right_idx = middle_index - 1
+            else: 
+                left_idx = middle_index + 1
         return -1
-    else:
-        middle = left + (right - left) // 2
-        if arr[middle] == target:
-            return middle
-        elif arr[middle] > target:
-            return binary_search_r(arr=arr, left=left, right=middle, target=target)
-        else:
-            return binary_search_r(arr=arr, left=middle+1, right=right, target=target)
-
-def binary_search_v1(arr: list[int], target: int) -> int:
-    return binary_search_r(arr=arr, target=target, left=0, right=len(arr)-1)
-
-# Iterative
-def binary_search_it(arr: list[int], target: int) -> int:
-    left_idx = 0
-    right_idx = len(arr)-1
-    while left_idx < right_idx:
-        middle_idx = left_idx + (right_idx - left_idx)//2
-        if arr[middle_idx] == target:
-            return middle_idx
-        elif arr[middle_idx] < target:
-            left_idx = middle_idx + 1
-        else:
-            right_idx = middle_idx
-    return -1
-
-if __name__== "__main__":
-    input_arr = [1, 2, 5, 8, 9]
-    target = 2
-    print(f"Input array : {input_arr}")
-    print(f"Searching the target value : {target}")
-    output = binary_search_it(arr=input_arr, target=target)
-    expected = 1
-    assert output == expected, f"Expected {expected}, actual {output}"
-    print(f"Founded in index : {output}")
