@@ -1,6 +1,6 @@
 import unittest
 
-from algorithms.search.binary_search import BinarySearchIterativeVersion, BinarySearchRecursiveVersion
+from src.algorithms.search.binary_search import BinarySearchIterativeVersion, BinarySearchRecursiveVersion
 
 
 class BaseBinarySearchTests(unittest.TestCase):

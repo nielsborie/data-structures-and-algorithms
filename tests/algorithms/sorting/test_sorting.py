@@ -1,7 +1,7 @@
 import unittest
 from abc import ABC, abstractmethod
 
-from algorithms.sorting.merge_sort import AbstractMergeSort, MergeSortWithReplacement, MergeSortNoReplacement
+from src.algorithms.sorting.merge_sort import AbstractMergeSort, MergeSortWithReplacement, MergeSortNoReplacement
 
 
 class AbstractMergeSortTest(ABC):
