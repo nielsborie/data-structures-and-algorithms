@@ -22,12 +22,12 @@ class Node:
             return True
         elif value <= self.data:
             if self.left:
-                self.left.contains(value=value)
+                return self.left.contains(value=value)
             else:
                 return False
         else:
             if self.right:
-                self.right.contains(value=value)
+                return self.right.contains(value=value)
             else:
                 return False
 
@@ -43,16 +43,16 @@ class Node:
         # self, left, right
         print(self.data)
         if self.left:
-            self.left.print_in_order()
+            self.left.print_pre_order()
         if self.right:
-            self.right.print_in_order()
+            self.right.print_pre_order()
 
     def print_post_order(self) -> None:
         # left, right, self
         if self.left:
-            self.left.print_in_order()
+            self.left.print_post_order()
         if self.right:
-            self.right.print_in_order()
+            self.right.print_post_order()
         print(self.data)
 
 
