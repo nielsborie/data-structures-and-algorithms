@@ -55,10 +55,45 @@ class Node:
             self.right.print_post_order()
         print(self.data)
 
+class BinarySearchTree:
+    def __init__(self) -> None:
+        self.root = None
+
+    def insert(self, value: int) -> None:
+        if self.root:
+            self.root.insert(value=value)
+        else:
+            self.root = Node(value=value)
+
+    def contains(self, value: int) -> bool:
+        if self.root:
+            return self.root.contains(value=value)
+        else: 
+            return False
+        
+    def print_in_order(self) -> None:
+        if self.root:
+            self.root.print_in_order()
+    
+    def print_post_order(self) -> None:
+        if self.root:
+            self.root.print_post_order()
+        
+    def print_pre_order(self) -> None:
+        if self.root:
+            self.root.print_pre_order()
+        
 
 if __name__ == "__main__":
-    node = Node(value=10)
-    node.insert(5)
-    node.insert(8)
-    node.insert(15)
-    node.print_in_order()
+    bst = BinarySearchTree()
+    bst.insert(10)
+    bst.insert(1)
+    bst.insert(5)
+    bst.insert(15)
+    bst.insert(8)
+    print("In order :")
+    bst.print_in_order()
+    print("Post order :")
+    bst.print_post_order()
+    print("Pre order :")
+    bst.print_pre_order()
