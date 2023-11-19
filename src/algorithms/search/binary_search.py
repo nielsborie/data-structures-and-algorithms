@@ -1,23 +1,19 @@
-import unittest
 from abc import ABC, abstractmethod
-import sys
-import inspect
-
 
 class AbstractBinarySearch(ABC):
 
     @abstractmethod
-    def binary_search(self, arr: list[int], x: int):
+    def binary_search(self, arr: list[int], x: int) -> int:
         pass
 
 
 class BinarySearchRecursiveVersion(AbstractBinarySearch):
-    def binary_search(self, arr: list[int], x: int):
+    def binary_search(self, arr: list[int], x: int) -> int:
         if not arr:
             return -1
         return self.binary_search_helper(arr=arr, target=x, left_pointer=0, right_pointer=len(arr)-1)
 
-    def binary_search_helper(self, arr: list[int], target: int, left_pointer: int, right_pointer):
+    def binary_search_helper(self, arr: list[int], target: int, left_pointer: int, right_pointer) -> int:
         if left_pointer > right_pointer:
             return -1
         middle_pointer = left_pointer + (right_pointer - left_pointer) // 2
@@ -31,7 +27,7 @@ class BinarySearchRecursiveVersion(AbstractBinarySearch):
 
 
 class BinarySearchIterativeVersion(AbstractBinarySearch):
-    def binary_search(self, arr: list[int], x: int):
+    def binary_search(self, arr: list[int], x: int) -> int:
         if not arr:
             return -1
         
