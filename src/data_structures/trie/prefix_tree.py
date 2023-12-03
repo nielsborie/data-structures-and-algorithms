@@ -1,6 +1,6 @@
 class TrieNode: 
     def __init__(self):
-        self.children: dict[str, TrieNode] = {}
+        self.children: dict[str, TrieNode | None] = {}
         self.is_terminal = False
 
 class Trie:
@@ -8,12 +8,13 @@ class Trie:
         self.root = TrieNode()
     
     def insert(self, word: str) -> None:
-        """Insert a word into the Trie.
+        """Insert a word into the Trie in a case-insensitive manner.
 
         Args:
-            word (str): character list representing the word to add in the structure.
+            word (str): String representing the word to add in the structure.
         """
         current_node = self.root
+        word = word.lower() # Convert the word to lowercase
         for character in word:
             if character not in current_node.children:
                 current_node.children[character] = TrieNode()
@@ -22,15 +23,16 @@ class Trie:
 
 
     def search(self, word: str) -> bool:
-        """Search if the word exists in that Trie.
+        """Search if the word exists in that Trie in a case-insensitive manner.
 
         Args:
-            word (str): character list representing the word to search in the structure.
+            word (str): String representing the word to search in the structure.
 
         Returns:
             bool: True if the word argument was found in the Trie, otherwise return False.
         """
         current_node = self.root
+        word = word.lower() # Convert the word to lowercase
         for character in word:
             if character not in current_node.children:
                 return False
@@ -38,15 +40,16 @@ class Trie:
         return current_node.is_terminal
 
     def starts_with(self, prefix: str) -> bool:
-        """Check if there is any word in the Trie that starts with the given prefix. 
+        """Check if there is any word in the Trie that starts with the given prefix in a case-insensitive manner.
 
         Args:
-            prefix (str): character list representing the prefix to search in the structure.
+            prefix (str): String representing the prefix to search in the structure.
 
         Returns:
             bool: True if the prefix argument was found in the Trie, otherwise return False.
         """
         current_node = self.root
+        prefix = prefix.lower()  # Convert the prefix to lowercase
         for character in prefix:
             if character not in current_node.children:
                 return False
@@ -57,8 +60,6 @@ class Trie:
 if __name__ == "__main__":
     trie = Trie()
     word_to_insert = "apple"
-    trie.insert(word_to_insert)
-    assert trie.search(word_to_insert), f"{word_to_insert=} doesn't exist in that Trie."
 
     print(f"- Inserting {word_to_insert=} into our Trie...")
     trie.insert(word_to_insert)
