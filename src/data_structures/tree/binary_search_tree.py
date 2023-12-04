@@ -2,10 +2,10 @@
 from collections import deque
 
 
-class Node:
+class TreeNode:
     def __init__(self, value: int) -> None:
-        self.left: Node = None
-        self.right: Node = None
+        self.left: TreeNode = None
+        self.right: TreeNode = None
         self.data: int = value
     
     def insert(self, value: int) -> None:
@@ -13,12 +13,12 @@ class Node:
             if self.left:
                 self.left.insert(value=value)
             else: 
-                self.left = Node(value=value)
+                self.left = TreeNode(value=value)
         else:
             if self.right:
                 self.right.insert(value=value)
             else:
-                self.right = Node(value=value)
+                self.right = TreeNode(value=value)
 
     def contains(self, value: int) -> bool:
         if self.data == value:
@@ -33,7 +33,7 @@ class Node:
                 return self.right.contains(value=value)
             else:
                 return False
-
+    
     def _get_max_depth(self):
         """Find the max depth in that Tree
 
@@ -73,6 +73,97 @@ class Node:
             self.right.print_post_order()
         print(self.data)
 
+    def delete_node(self, node_to_delete: int):
+        """
+        Delete a node with the specified key from the subtree rooted at this node.
+
+        This method recursively searches for the node with the specified key and performs the deletion.
+        The deletion follows the rules of a binary search tree:
+        - If the node to delete has no child or only one child, it is simply removed.
+        - If the node to delete has two children, it is replaced by its successor, and the successor is then deleted.
+
+        Time Complexity:
+            The time complexity of the delete_node method is O(h), where h is the height of the subtree rooted at the current node.
+            - In the worst case, when the tree is unbalanced (skewed), the height h is equal to the number of nodes in the tree (n). Therefore, the worst-case time complexity becomes O(n).
+            - In the best case, when the tree is balanced, the height h is logarithmic in the number of nodes (log(n)), resulting in a best-case time complexity of O(log(n)).
+            - The time complexity depends on the depth of the tree and the efficiency of the tree balancing.
+
+        Space Complexity:
+            The space complexity of the delete_node method is O(h), where h is the height of the recursive call stack.
+            - In the worst case, when the tree is unbalanced (skewed), the height h is equal to the number of nodes in the tree (n). Therefore, the worst-case space complexity becomes O(n).
+            - In the best case, when the tree is balanced, the height h is logarithmic in the number of nodes (log(n)), resulting in a best-case space complexity of O(log(n)).
+            - The space complexity is determined by the maximum depth of the recursive call stack during the method's execution.
+
+        It's important to note that these complexities are specific to the delete_node method and may vary based on the structure of the binary search tree (balanced or unbalanced). Additionally, the space complexity can be reduced by using an iterative approach instead of recursion.
+
+        Args:
+            key: The key of the node to delete.
+
+        Returns:
+            TreeNode: The root of the subtree after the deletion.
+        """
+        if self is None:
+            return self  # Return the actual node if it's None
+
+        if node_to_delete < self.data:
+            if self.left:
+                self.left = self.left.delete_node(node_to_delete=node_to_delete)
+        elif node_to_delete > self.data:
+            if self.right:
+                self.right = self.right.delete_node(node_to_delete=node_to_delete)
+        else:
+            # Node to delete found
+
+            # Case 1: No child or one child
+            if self.left is None:
+                return self.right
+            elif self.right is None:
+                return self.left
+            
+            # Case 2: Two children, replace with successor
+            new_node_to_delete = self._find_min_child(self.right)
+            self.data = new_node_to_delete.data  # Mettez à jour la valeur du nœud actuel
+            self.right = self.right.delete_node(node_to_delete=new_node_to_delete.data)
+
+        return self
+    
+    def _find_min_child(self, node):
+        current = node
+        while current.left is not None:
+            current = current.left
+        return current
+
+# Function alternative
+def delete_node(root: TreeNode, key: int):
+    if root is None:
+        return root
+
+    # Finding the node to delete
+    if key < root.data:
+        root.left = delete_node(root.left, key)
+    elif key > root.data:
+        root.right = delete_node(root.right, key)
+    else:
+        # Node has been spotted
+
+        # Cas 1 : No child or one child
+        if root.left is None:
+            return root.right
+        elif root.right is None:
+            return root.left
+
+        # Case 2: Two children, replace with successor
+        root.data = find_min_value(root.right).data
+        root.right = delete_node(root.right, root.data)
+
+    return root
+
+def find_min_value(node: TreeNode):
+    current = node
+    while current.left is not None:
+        current = current.left
+    return current
+
 class BinarySearchTree:
     def __init__(self) -> None:
         self.root = None
@@ -81,13 +172,17 @@ class BinarySearchTree:
         if self.root:
             self.root.insert(value=value)
         else:
-            self.root = Node(value=value)
+            self.root = TreeNode(value=value)
 
     def contains(self, value: int) -> bool:
         if self.root:
             return self.root.contains(value=value)
         else: 
             return False
+        
+    def delete_node(self, to_delete: int):
+        if self.root:
+            return self.root.delete_node(node_to_delete=to_delete)
     
     def get_height_recursive(self):
         """Get the height of that Tree
