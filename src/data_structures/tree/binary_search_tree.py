@@ -135,32 +135,33 @@ class TreeNode:
 
 # Function alternative
 def delete_node(root: TreeNode, key: int):
-    if root is None:
+    
+    if not root:
         return root
-
-    # Finding the node to delete
+    
+    # Find the node to delete
     if key < root.data:
-        root.left = delete_node(root.left, key)
+        root.left = delete_node(root=root.left, key=key)
     elif key > root.data:
-        root.right = delete_node(root.right, key)
+        root.right = delete_node(root=root.right, key=key)
     else:
-        # Node has been spotted
+        # Found the node to delete
 
-        # Cas 1 : No child or one child
-        if root.left is None:
+        # Case 1 : No child or one child
+        if not root.left:
             return root.right
-        elif root.right is None:
+        elif not root.right:
             return root.left
-
-        # Case 2: Two children, replace with successor
-        root.data = find_min_value(root.right).data
-        root.right = delete_node(root.right, root.data)
-
+        
+        # Case 2 : Two children, replace the current node by minimun node found on the right subtree and delete this new value from the right subtree
+        new_node_to_delete = find_min_value(root.right)
+        root.data = new_node_to_delete.data
+        root.right = delete_node(root=root.right, key=new_node_to_delete.data)
     return root
 
 def find_min_value(node: TreeNode):
     current = node
-    while current.left is not None:
+    while current.left:
         current = current.left
     return current
 
