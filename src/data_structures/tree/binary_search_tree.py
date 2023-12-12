@@ -73,6 +73,23 @@ class TreeNode:
             self.right.print_post_order()
         print(self.data)
 
+    def _print_at_given_level(self, level: int) -> None:
+        if level == 1:
+            print(f"({self.data})" , end=" ")
+        elif level > 1:
+            if self.left:
+                self.left._print_at_given_level(level=level-1)
+            if self.right:
+                self.right._print_at_given_level(level=level-1)
+
+    def print_level_order(self) -> None:
+        h = self._get_max_depth()
+        for i in range(1, h+1):
+            self._print_at_given_level(i)
+            print()
+            print("-"*30)
+        
+
     def delete_node(self, node_to_delete: int):
         """
         Delete a node with the specified key from the subtree rooted at this node.
@@ -255,6 +272,9 @@ class BinarySearchTree:
         if self.root:
             self.root.print_pre_order()
         
+    def print_level_order(self) -> None:
+        if self.root:
+            self.root.print_level_order()
 
 if __name__ == "__main__":
     bst = BinarySearchTree()
