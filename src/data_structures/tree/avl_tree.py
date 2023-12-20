@@ -76,9 +76,9 @@ class AVLTree:
 				root = None
 				return temp
  
-		temp = self.get_min_value(root.right)
-		root.val = temp.val
-		root.right = self.delete(root.right, temp.val)
+			temp = self.get_min_value(root.right)
+			root.val = temp.val
+			root.right = self.delete(root.right, temp.val)
  
 		# If the tree has only one node,
 		# simply return it
