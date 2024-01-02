@@ -31,6 +31,9 @@ class Trie:
         Returns:
             bool: True if the word argument was found in the Trie, otherwise return False.
         """
+        if not self.root:
+            return False
+        
         current_node = self.root
         word = word.lower() # Convert the word to lowercase
         for character in word:
@@ -55,7 +58,29 @@ class Trie:
                 return False
             current_node = current_node.children[character]
         return True
+    
+    def remove(self, key: str) -> None:
+        self._remove(self.root, key, 0)
 
+    def _remove(self, node: TrieNode, key: str, depth: int) -> None:
+        if depth == len(key):
+            if node.is_terminal:
+                node.is_terminal = False
+            if not node.children:
+                # Supprimer la référence du parent si le nœud courant n'a pas d'enfants après la suppression
+                return None
+            return
+
+        char = key[depth]
+        if char not in node.children:
+            return
+
+        child = node.children[char]
+        self._remove(child, key, depth + 1)
+
+        if not node.is_terminal and not any(node.children.values()):
+            # Supprimer la référence du parent si le nœud courant n'est pas un nœud terminal et n'a pas d'enfants après la suppression
+            del node.children[char]
 
 if __name__ == "__main__":
     trie = Trie()
@@ -71,3 +96,7 @@ if __name__ == "__main__":
     print(f"? Checking if {valid_prefix=} is a correct 'prefix' in that Trie -> {trie.starts_with(valid_prefix)=}")
     invalid_prefix = "apd"
     print(f"? Checking if {invalid_prefix=} is a correct 'prefix' in that Trie -> {trie.starts_with(invalid_prefix)=}")
+
+    print(f"- Deleting {word_to_insert=} from our Trie...")
+    trie.remove(word_to_insert)
+    print(f"? Checking if {word_to_insert=} exists in that Trie -> {trie.search(word_to_insert)=}")
