@@ -106,6 +106,24 @@ class TestTrie(unittest.TestCase):
         # Then
         self.assertTrue(result_initial_insertion, "Failed to find word after initial insertion")
         self.assertTrue(result_repeated_insertion, "Failed to find word after repeated insertion")
+    
+    def test_remove_words(self):
+        # Given
+        words = ["apple", "apples", "banana", "bananas"]
+        for word in words:
+            self.trie.insert(word)
+
+        # When/Then
+        self.trie.remove("apple")
+        self.assertFalse(self.trie.search("apple"), f"Incorrectly found 'apple'")
+        self.assertTrue(self.trie.search("apples"), f"Failed to find 'apples' after insertion")
+
+        self.trie.remove("bananas")
+        self.assertFalse(self.trie.search("bananas"), f"Incorrectly found 'bananas'")
+        self.assertTrue(self.trie.search("banana"), f"Failed to find 'banana' after insertion")
+    
+    
+        
 
 if __name__ == '__main__':
     unittest.main()
