@@ -66,7 +66,7 @@ class Trie:
     def _remove(self, node: TrieNode, key: str, depth: int) -> TrieNode:
         # Base case: if the node is None, the key is not present
         if node is None:
-            return None
+            return TrieNode()
 
         # Base case: we have reached the end of the key
         if depth == len(key):
@@ -75,7 +75,7 @@ class Trie:
                 node.is_terminal = False
             # If the node has no children after removal, return None to update the parent's reference
             if not node.children:
-                return None
+                return TrieNode()
             # Otherwise, return the node as is
             return node
 
@@ -93,10 +93,43 @@ class Trie:
 
         # If the current node is not a terminal node and has no children after removal, return None
         if not node.is_terminal and not any(node.children.values()):
-            return None
+            return TrieNode()
 
         # Otherwise, return the updated node
         return node
+    
+    def _get_all_suggestions(self, node: TrieNode, word: str, suggestions: list[str]) -> None:
+ 
+        # Method to recursively traverse the trie
+        # and appending a whole word.
+        if node.is_terminal:
+            suggestions.append(word)
+ 
+        for char, child in node.children.items():
+            self._get_all_suggestions(child, word + char, suggestions)
+ 
+    def suggest(self, key: str) -> list[str] | None:
+ 
+        # Returns all the words in the trie whose common
+        # prefix is the given key thus listing out all
+        # the suggestions for autocomplete.
+        node = self.root
+        suggestions = []
+ 
+        for a in key:
+            # no string in the Trie has this prefix
+            if not node.children.get(a):
+                return None
+            node = node.children[a]
+ 
+        # If prefix is present as a word, but
+        # there is no subtree below the last
+        # matching node.
+        if not node.children:
+            return None
+ 
+        self._get_all_suggestions(node, key, suggestions)
+        return suggestions
     
 if __name__ == "__main__":
     trie = Trie()
@@ -116,3 +149,27 @@ if __name__ == "__main__":
     print(f"- Deleting {word_to_insert=} from our Trie...")
     trie.remove(word_to_insert)
     print(f"? Checking if {word_to_insert=} exists in that Trie -> {trie.search(word_to_insert)=}")
+
+    words = ["apple", "apples", "ap", "application"]
+    print(f"- Inserting {words=} into our Trie...")
+    for word in words:
+        trie.insert(word)
+    
+    tmp_word = "a"
+    print(f"? - Get all suggestions for {tmp_word=} from our Trie -> {trie.suggest(tmp_word)}")
+    tmp_word2 = "apple"
+    print(f"? - Get all suggestions for {tmp_word2=} from our Trie -> {trie.suggest(tmp_word2)}")
+    tmp_word3 = "b"
+    print(f"? - Get all suggestions for {tmp_word3=} from our Trie -> {trie.suggest(tmp_word3)}")
+
+    word_to_remove = "apples"
+    print(f"- Deleting {word_to_remove=} from our Trie...")
+    trie.remove(word_to_remove)
+    print(f"? Checking if {word_to_remove=} exists in that Trie -> {trie.search(word_to_remove)=}")
+
+    tmp_word = "a"
+    print(f"? - Get all suggestions for {tmp_word=} from our Trie -> {trie.suggest(tmp_word)}")
+    tmp_word2 = "apple"
+    print(f"? - Get all suggestions for {tmp_word2=} from our Trie -> {trie.suggest(tmp_word2)}")
+    tmp_word3 = "b"
+    print(f"? - Get all suggestions for {tmp_word3=} from our Trie -> {trie.suggest(tmp_word3)}")
