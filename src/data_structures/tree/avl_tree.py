@@ -57,7 +57,7 @@ class AVLTree:
 	# Recursive function to delete a node with
 	# given key from subtree with given root.
 	# It returns root of the modified subtree.
-	def delete(self, root, key):
+	def delete(self, root: AVLTreeNode, key: int) -> AVLTreeNode:
 		# Step 1 - Perform standard BST delete
 		if not root:
 			return root
