@@ -74,6 +74,18 @@ class TreeNode:
         print(self.data)
 
     def _print_at_given_level(self, level: int) -> None:
+        """
+        Recursively prints nodes at the given level of the tree.
+
+        Args:
+            level (int): The level of the tree to print.
+
+        Time Complexity:
+            O(n), where n is the number of nodes in the tree.
+
+        Returns:
+            None
+        """
         if level == 1:
             print(f"({self.data})" , end=" ")
         elif level > 1:
@@ -83,6 +95,20 @@ class TreeNode:
                 self.right._print_at_given_level(level=level-1)
 
     def print_level_order(self) -> None:
+        """
+        Prints the values of the tree in level order.
+
+        Uses Breadth-First Search (BFS) to traverse the tree layer by layer.
+
+        Time Complexity:
+            O(n), where n is the number of nodes in the tree.
+
+        Space Complexity:
+            O(n), where n is the number of nodes in the tree.
+
+        Returns:
+            None
+        """
         h = self._get_max_depth()
         for i in range(1, h+1):
             self._print_at_given_level(i)
