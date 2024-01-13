@@ -121,6 +121,23 @@ class TestTrie(unittest.TestCase):
         self.trie.remove("bananas")
         self.assertFalse(self.trie.search("bananas"), f"Incorrectly found 'bananas'")
         self.assertTrue(self.trie.search("banana"), f"Failed to find 'banana' after insertion")
+
+    def test_suggestions(self):
+        # Given
+        trie = Trie()
+        words = ["apple", "apples", "banana", "bananas", "Bartender"]
+        for word in words:
+            trie.insert(word)
+
+        # When 
+        a_suggestion = trie.suggest("ap")
+        b_suggestion = trie.suggest("b")
+        c_suggestion = trie.suggest("c")
+
+        # Then
+        self.assertListEqual(a_suggestion, ["apple", "apples"])
+        self.assertListEqual(b_suggestion, ["banana", "bananas", "bartender"])
+        self.assertIsNone(c_suggestion)
     
     
         
