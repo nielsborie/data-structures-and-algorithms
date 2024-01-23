@@ -1,5 +1,4 @@
 import unittest
-
 from src.data_structures.priority_queue.min_heap import MinHeap
 
 
@@ -83,6 +82,57 @@ class TestMinHeap(unittest.TestCase):
         # Then
         expected_values = [1, 2, 4, 5, 8]
         self.assertEqual(extracted_values, expected_values)
+    
+    def test_update_by_index(self):
+        # Given
+        min_heap = MinHeap()
+        min_heap.insert(3)
+        min_heap.insert(1)
+        min_heap.insert(4)
+        min_heap.insert(2)
+
+        # When
+        min_heap.update_by_index(2, 0)
+
+        # Then
+        self.assertEqual(min_heap.array, [0, 2, 1, 3])
+
+        # When
+        min_heap.update_by_index(0, 5)
+
+        # Then
+        self.assertEqual(min_heap.array, [1, 2, 5, 3])
+
+        # When
+        min_heap.update_by_index(3, 1)
+
+        # Then
+        self.assertEqual(min_heap.array, [1, 1, 5, 2])
+
+    def test_update(self):
+        # Given
+        min_heap = MinHeap()
+        min_heap.insert(3)
+        min_heap.insert(1)
+        min_heap.insert(4)
+        min_heap.insert(2)
+
+        # When
+        min_heap.update(3, 0)
+
+        # Then
+        self.assertEqual(min_heap.array, [0, 1, 4, 2])
+
+        # Given
+        # No need to reset the heap for the second scenario
+
+        # When
+        with self.assertRaises(ValueError) as context:
+            min_heap.update(5, 10)
+
+        # Then
+        self.assertEqual(str(context.exception), "Value old=5 not found in the heap")
+
 
 if __name__ == '__main__':
     unittest.main()
