@@ -169,6 +169,11 @@ class TreeNode:
             successor: TreeNode = self._find_min_child(self.right)
             self.data = successor.data
             self.right = self.right.delete_node(node_to_delete=successor.data)
+            
+            # Alternative using the maximum value on the left subtree and replace the current node with it, then recursively delete this new value on the left subtree
+            #successor = self._find_max_child(self.left)
+            #self.data = successor.data
+            #self.left = self.left.delete_node(successor.data)
         return self
     
     def _find_min_child(self, node):
@@ -177,8 +182,14 @@ class TreeNode:
             current = current.left
         return current
     
+    def _find_max_child(self, node):
+        current = node
+        while current.right:
+            current = current.right
+        return current
+    
 # Function alternative
-def delete_node(root: TreeNode, key: int):
+def delete_node(root: TreeNode, key: int) -> TreeNode:
     if root is None:
         return root
     
