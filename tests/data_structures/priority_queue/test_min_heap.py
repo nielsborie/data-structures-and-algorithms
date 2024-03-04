@@ -1,4 +1,5 @@
 import unittest
+
 from src.data_structures.priority_queue.min_heap import MinHeap
 
 
@@ -82,7 +83,7 @@ class TestMinHeap(unittest.TestCase):
         # Then
         expected_values = [1, 2, 4, 5, 8]
         self.assertEqual(extracted_values, expected_values)
-    
+
     def test_update_by_index(self):
         # Given
         min_heap = MinHeap()

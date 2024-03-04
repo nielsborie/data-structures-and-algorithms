@@ -1,5 +1,6 @@
 from src.data_structures.tree.binary_search_tree import BinarySearchTree, TreeNode
 
+
 def bst_to_array(node: TreeNode, nodes: list[TreeNode]) -> None:
     """Convert a BST to a sorted array.
 
@@ -18,19 +19,18 @@ def bst_to_array(node: TreeNode, nodes: list[TreeNode]) -> None:
         return
     bst_to_array(node=node.left, nodes=nodes)
     nodes.append(node)
-    bst_to_array(node=node.right, nodes=nodes) 
+    bst_to_array(node=node.right, nodes=nodes)
+
 
 def balance_tree_util(nodes: list[TreeNode], left_idx: int, right_idx: int) -> TreeNode:
-    
     if left_idx > right_idx:
         return
-    
-    middle_idx = left_idx + (right_idx - left_idx)//2
+
+    middle_idx = left_idx + (right_idx - left_idx) // 2
     node = nodes[middle_idx]
-    node.left = balance_tree_util(nodes=nodes, left_idx=left_idx, right_idx=middle_idx-1)
-    node.right = balance_tree_util(nodes=nodes, left_idx=middle_idx+1, right_idx=right_idx)
+    node.left = balance_tree_util(nodes=nodes, left_idx=left_idx, right_idx=middle_idx - 1)
+    node.right = balance_tree_util(nodes=nodes, left_idx=middle_idx + 1, right_idx=right_idx)
     return node
-    
 
 
 def balance_tree(root: TreeNode) -> TreeNode:
@@ -56,31 +56,31 @@ def balance_tree(root: TreeNode) -> TreeNode:
     sorted_nodes = []
     bst_to_array(node=root, nodes=sorted_nodes)
 
-    return balance_tree_util(nodes=sorted_nodes, left_idx=0, right_idx=len(sorted_nodes)-1)
+    return balance_tree_util(nodes=sorted_nodes, left_idx=0, right_idx=len(sorted_nodes) - 1)
+
 
 def height(root):
- 
     # base condition when binary tree is empty
     if root is None:
         return 0
     return max(height(root.left), height(root.right)) + 1
 
+
 def is_balanced(root: TreeNode):
- 
     # Base condition
     if root is None:
         return True
- 
+
     # for left and right subtree height
     lh = height(root.left)
     rh = height(root.right)
- 
+
     # allowed values for (lh - rh) are 1, -1, 0
     if (abs(lh - rh) <= 1) and is_balanced(root.left) is True and is_balanced(root.right) is True:
         return True
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     """
     
     Input:

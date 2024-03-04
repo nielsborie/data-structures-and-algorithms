@@ -2,6 +2,7 @@ import unittest
 
 from src.data_structures.stack.stack import Stack
 
+
 class TestStack(unittest.TestCase):
 
     def test_empty_stack(self):
@@ -65,6 +66,7 @@ class TestStack(unittest.TestCase):
         self.assertEqual(stack.size(), 1)
         stack.pop()
         self.assertEqual(stack.size(), 0)
+
 
 if __name__ == '__main__':
     unittest.main()

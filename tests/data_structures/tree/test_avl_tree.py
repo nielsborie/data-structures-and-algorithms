@@ -2,6 +2,7 @@ import unittest
 
 from src.data_structures.tree.avl_tree import AVLTree
 
+
 class TestAVLTree(unittest.TestCase):
     def setUp(self):
         self.myTree = AVLTree()
@@ -27,11 +28,10 @@ class TestAVLTree(unittest.TestCase):
         for val in values:
             self.root = self.myTree.insert(self.root, val)
             self.assertTrue(self.is_subtree_balanced(self.root))
-        
+
         for val in reversed(values):
             self.root = self.myTree.delete(self.root, val)
             self.assertTrue(self.is_subtree_balanced(self.root))
-        
 
     def is_subtree_balanced(self, root):
         # Helper function to check if a subtree is balanced
@@ -51,6 +51,7 @@ class TestAVLTree(unittest.TestCase):
 
         # The subtree is balanced if both left and right subtrees are balanced
         return left_balanced and right_balanced
+
 
 if __name__ == '__main__':
     unittest.main()

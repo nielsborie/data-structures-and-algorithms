@@ -2,6 +2,7 @@ import unittest
 
 from src.data_structures.trie.prefix_tree import Trie
 
+
 class TestTrie(unittest.TestCase):
     def setUp(self):
         self.trie = Trie()
@@ -57,7 +58,6 @@ class TestTrie(unittest.TestCase):
                 # Then
                 self.assertFalse(result, f"Incorrectly found prefix {prefix}")
 
-
     def test_case_insensitivity(self):
         # Given
         words = ["Apple", "Banana", "apPle", "BaT"]
@@ -106,7 +106,7 @@ class TestTrie(unittest.TestCase):
         # Then
         self.assertTrue(result_initial_insertion, "Failed to find word after initial insertion")
         self.assertTrue(result_repeated_insertion, "Failed to find word after repeated insertion")
-    
+
     def test_remove_words(self):
         # Given
         words = ["apple", "apples", "banana", "bananas"]
@@ -138,9 +138,7 @@ class TestTrie(unittest.TestCase):
         self.assertListEqual(a_suggestion, ["apple", "apples"])
         self.assertListEqual(b_suggestion, ["banana", "bananas", "bartender"])
         self.assertIsNone(c_suggestion)
-    
-    
-        
+
 
 if __name__ == '__main__':
     unittest.main()

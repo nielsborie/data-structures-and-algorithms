@@ -51,10 +51,12 @@ class MergeSortWithReplacementTest(AbstractMergeSortTest, unittest.TestCase):
     def create_merge_sort_instance(self) -> 'AbstractMergeSort':
         return MergeSortWithReplacement()
 
+
 class MergeSortWithoutReplacementTest(AbstractMergeSortTest, unittest.TestCase):
 
     def create_merge_sort_instance(self) -> 'AbstractMergeSort':
         return MergeSortNoReplacement()
+
 
 if __name__ == '__main__':
     unittest.main()

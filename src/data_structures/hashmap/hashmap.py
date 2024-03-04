@@ -23,7 +23,7 @@ class HashMap:
 
     def get(self, key: int) -> int:
         cur = self.map[self.hash(key)].next
-        while cur: 
+        while cur:
             if cur.key == key:
                 return cur.val
             cur = cur.next

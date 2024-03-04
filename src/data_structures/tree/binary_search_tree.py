@@ -1,4 +1,3 @@
-
 from collections import deque
 
 
@@ -7,12 +6,12 @@ class TreeNode:
         self.left: TreeNode = None
         self.right: TreeNode = None
         self.data: int = value
-    
+
     def insert(self, value: int) -> None:
         if value <= self.data:
             if self.left:
                 self.left.insert(value=value)
-            else: 
+            else:
                 self.left = TreeNode(value=value)
         else:
             if self.right:
@@ -33,7 +32,7 @@ class TreeNode:
                 return self.right.contains(value=value)
             else:
                 return False
-    
+
     def _get_max_depth(self):
         """Find the max depth in that Tree
 
@@ -87,12 +86,12 @@ class TreeNode:
             None
         """
         if level == 1:
-            print(f"({self.data})" , end=" ")
+            print(f"({self.data})", end=" ")
         elif level > 1:
             if self.left:
-                self.left._print_at_given_level(level=level-1)
+                self.left._print_at_given_level(level=level - 1)
             if self.right:
-                self.right._print_at_given_level(level=level-1)
+                self.right._print_at_given_level(level=level - 1)
 
     def print_level_order(self) -> None:
         """
@@ -110,11 +109,10 @@ class TreeNode:
             None
         """
         h = self._get_max_depth()
-        for i in range(1, h+1):
+        for i in range(1, h + 1):
             self._print_at_given_level(i)
             print()
-            print("-"*30)
-        
+            print("-" * 30)
 
     def delete_node(self, node_to_delete: int):
         """
@@ -145,10 +143,10 @@ class TreeNode:
         Returns:
             TreeNode: The root of the subtree after the deletion.
         """
-        
+
         if self is None:
             return self
-        
+
         if node_to_delete < self.data:
             if self.left is not None:
                 self.left = self.left.delete_node(node_to_delete=node_to_delete)
@@ -163,36 +161,37 @@ class TreeNode:
                 return self.right
             elif self.right is None:
                 return self.left
-            
+
             # Case 2: Two children, replace with successor
             # The idea is to take the minium value on the right subtree and replace the current node with it, then recursively delete this new value on the right subtree
             successor: TreeNode = self._find_min_child(self.right)
             self.data = successor.data
             self.right = self.right.delete_node(node_to_delete=successor.data)
-            
+
             # Alternative using the maximum value on the left subtree and replace the current node with it, then recursively delete this new value on the left subtree
-            #successor = self._find_max_child(self.left)
-            #self.data = successor.data
-            #self.left = self.left.delete_node(successor.data)
+            # successor = self._find_max_child(self.left)
+            # self.data = successor.data
+            # self.left = self.left.delete_node(successor.data)
         return self
-    
+
     def _find_min_child(self, node):
         current = node
         while current.left is not None:
             current = current.left
         return current
-    
+
     def _find_max_child(self, node):
         current = node
         while current.right:
             current = current.right
         return current
-    
+
+
 # Function alternative
 def delete_node(root: TreeNode, key: int) -> TreeNode:
     if root is None:
         return root
-    
+
     if key > root.data:
         root.right = delete_node(root=root.right, key=key)
     elif key < root.data:
@@ -211,11 +210,13 @@ def delete_node(root: TreeNode, key: int) -> TreeNode:
             root.right = delete_node(root=root.right, key=successor.data)
     return root
 
+
 def find_min_value(node: TreeNode):
     current = node
     while current.left:
         current = current.left
     return current
+
 
 class BinarySearchTree:
     def __init__(self) -> None:
@@ -230,13 +231,13 @@ class BinarySearchTree:
     def contains(self, value: int) -> bool:
         if self.root:
             return self.root.contains(value=value)
-        else: 
+        else:
             return False
-        
+
     def delete_node(self, to_delete: int):
         if self.root:
             return self.root.delete_node(node_to_delete=to_delete)
-    
+
     def get_height_recursive(self):
         """Get the height of that Tree
 
@@ -260,7 +261,7 @@ class BinarySearchTree:
         """
         if not self.root:
             return 0
-        
+
         level = 0
         q = deque([self.root])
         while q:
@@ -272,7 +273,6 @@ class BinarySearchTree:
                     q.append(node.right)
             level += 1
         return level
-    
 
     def get_height_depth_first_search(self):
         """Get the height of that Tree
@@ -284,34 +284,33 @@ class BinarySearchTree:
         """
         if not self.root:
             return 0
-        
+
         level = 1
         stack = [(self.root, 1)]
         while stack:
             node, depth = stack.pop()
             if node:
                 level = max(level, depth)
-                stack.append((node.left, depth+1))
-                stack.append((node.right, depth+1))
+                stack.append((node.left, depth + 1))
+                stack.append((node.right, depth + 1))
         return level
 
-
-    
     def print_in_order(self) -> None:
         if self.root:
             self.root.print_in_order()
-    
+
     def print_post_order(self) -> None:
         if self.root:
             self.root.print_post_order()
-        
+
     def print_pre_order(self) -> None:
         if self.root:
             self.root.print_pre_order()
-        
+
     def print_level_order(self) -> None:
         if self.root:
             self.root.print_level_order()
+
 
 if __name__ == "__main__":
     bst = BinarySearchTree()

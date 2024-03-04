@@ -17,6 +17,7 @@ class Node:
         self.value: int = value
         self.next: Node = None
 
+
 class Queue:
     """
     Implements a queue data structure based on the Node class.
@@ -33,7 +34,7 @@ class Queue:
         """
         self.front: Node = None
         self.rear: Node = None
-        self.length: int = 0 
+        self.length: int = 0
 
     def is_empty(self):
         """
@@ -68,7 +69,7 @@ class Queue:
         Raises:
             IndexError: If the queue is empty.
         """
-        
+
         if self.is_empty():
             raise Exception("Queue is empty, dequeue is not possible.")
         node = self.front

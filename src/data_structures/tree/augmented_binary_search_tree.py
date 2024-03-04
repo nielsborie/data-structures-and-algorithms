@@ -1,4 +1,3 @@
-
 class Node:
     def __init__(self, value: int) -> None:
         self.left: Node = None
@@ -13,7 +12,7 @@ class Node:
         if value <= self.data:
             if self.left:
                 self.left.insert(value=value)
-            else: 
+            else:
                 self.left = Node(value=value)
             self.size += 1
             if self.min > value:
@@ -73,7 +72,7 @@ class Node:
             return 1 + self.right._get_height()
         else:
             return 1
-        
+
     # Print nodes at a given level
     def print_at_level(self, level: int) -> None:
         if level == 1:
@@ -84,13 +83,13 @@ class Node:
                 self.left.print_at_level(level - 1)
             if self.right:
                 self.right.print_at_level(level - 1)
-    
+
     def print_level_order(self) -> None:
         h = self._get_height()
-        for i in range(1, h+1):
+        for i in range(1, h + 1):
             self.print_at_level(i)
             print()
-            print("-"*10)
+            print("-" * 10)
 
 
 class BinarySearchTree:
@@ -106,23 +105,23 @@ class BinarySearchTree:
     def contains(self, value: int) -> bool:
         if self.root:
             return self.root.contains(value=value)
-        else: 
+        else:
             return False
-    
+
     def height(self) -> int:
         if self.root:
             return self.root._get_height()
-        else: 
+        else:
             return 0
-        
+
     def print_in_order(self) -> None:
         if self.root:
             self.root.print_in_order()
-    
+
     def print_level_order(self) -> None:
         if self.root:
             self.root.print_level_order()
-        
+
 
 if __name__ == "__main__":
     bst = BinarySearchTree()

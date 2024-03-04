@@ -1,6 +1,8 @@
 import unittest
+
 from src.data_structures.tree.balance_binary_search_tree import balance_tree, is_balanced
 from src.data_structures.tree.binary_search_tree import BinarySearchTree
+
 
 class TestBalanceTree(unittest.TestCase):
 
@@ -40,6 +42,7 @@ class TestBalanceTree(unittest.TestCase):
     def test_balance_tree_case3(self):
         balanced_bst = balance_tree(self.bst3.root)
         self.assertTrue(is_balanced(balanced_bst))
+
 
 if __name__ == '__main__':
     unittest.main()

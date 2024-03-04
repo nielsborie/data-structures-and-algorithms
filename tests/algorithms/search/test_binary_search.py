@@ -39,23 +39,27 @@ class BaseBinarySearchTests(unittest.TestCase):
                 with self.subTest(arr=arr, target=target):
                     searcher = self.search_class()
                     self.assertEqual(searcher.binary_search(arr, target), expected)
-        else: 
+        else:
             self.skipTest("Tests are not activated for this class.")
+
 
 class BinarySearchIterativeVersionTests(BaseBinarySearchTests):
     def setUp(self):
         self.search_class = BinarySearchIterativeVersion
         self.skip_test = False
 
+
 class BinarySearchRecursiveVersionTests(BaseBinarySearchTests):
     def setUp(self):
         self.search_class = BinarySearchRecursiveVersion
         self.skip_test = False
+
 
 if __name__ == '__main__':
     if __name__ == '__main__' and __package__ is None:
         loader = unittest.TestLoader()
         suite = unittest.TestSuite()
         for subclass in BaseBinarySearchTests.__subclasses__():
-            suite.addTests(loader.loadTestsFromTestCase(subclass) if subclass.__name__ != 'BaseBinarySearchTest' else unittest.TestSuite())
+            suite.addTests(loader.loadTestsFromTestCase(
+                subclass) if subclass.__name__ != 'BaseBinarySearchTest' else unittest.TestSuite())
         unittest.TextTestRunner(verbosity=2).run(suite)

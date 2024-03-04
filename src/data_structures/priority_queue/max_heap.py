@@ -2,18 +2,18 @@ class MaxHeap:
     def __init__(self) -> None:
         self.heap: list[int] = []
         self.size: int = 0
-    
+
     def has_left(self, i: int) -> bool:
         return self.left(i) < len(self.heap)
-    
+
     def left(self, i: int) -> int:
-        return 2*i + 1
+        return 2 * i + 1
 
     def has_right(self, i: int) -> bool:
         return self.right(i) < len(self.heap)
 
     def right(self, i: int) -> int:
-        return 2*i + 2
+        return 2 * i + 2
 
     def has_parent(self, i: int) -> bool:
         return self.parent(i) >= 0
@@ -27,8 +27,10 @@ class MaxHeap:
             i = self.parent(i)
 
     def heapify_down(self, i: int) -> None:
-        while (self.has_left(i) and self.heap[i] < self.heap[self.left(i)]) or (self.has_right(i) and self.heap[i] < self.heap[self.right(i)]):
-            greater = self.left(i) if not self.has_right(i) or self.heap[self.left(i)] > self.heap[self.right(i)] else self.right(i)
+        while (self.has_left(i) and self.heap[i] < self.heap[self.left(i)]) or (
+                self.has_right(i) and self.heap[i] < self.heap[self.right(i)]):
+            greater = self.left(i) if not self.has_right(i) or self.heap[self.left(i)] > self.heap[
+                self.right(i)] else self.right(i)
             self.heap[i], self.heap[greater] = self.heap[greater], self.heap[i]
             i = greater
 
@@ -59,7 +61,8 @@ class MaxHeap:
 
     def update_by_index(self, i: int, new: int) -> None:
         if i >= self.size:
-            raise IndexError(f"You're trying to update a non existing index; received {i=} but the heap has only {self.size} elements.")
+            raise IndexError(
+                f"You're trying to update a non existing index; received {i=} but the heap has only {self.size} elements.")
         old = self.heap[i]
         self.heap[i] = new
         if old > new:

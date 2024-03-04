@@ -12,6 +12,7 @@ class Stack:
     push(a) - Inserts the element 'a' at the top of the stack - Time Complexity: O(1)
     pop() - Deletes the topmost element of the stack - Time Complexity: O(1)
     """
+
     def __init__(self) -> None:
         self.top: Node = None
         self.length: int = 0
@@ -30,7 +31,7 @@ class Stack:
         if self.top:
             new_node.next = self.top
             self.top = new_node
-        else: 
+        else:
             self.top = new_node
         self.length += 1
 

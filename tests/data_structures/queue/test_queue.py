@@ -2,6 +2,7 @@ import unittest
 
 from src.data_structures.queue.queue import Queue
 
+
 class TestQueue(unittest.TestCase):
 
     def test_enqueue_dequeue(self):
@@ -114,6 +115,7 @@ class TestQueue(unittest.TestCase):
         # Then the queue should be empty after dequeueing all elements
         self.assertTrue(queue.is_empty())
         self.assertEqual(queue.size(), 0)
+
 
 if __name__ == '__main__':
     unittest.main()

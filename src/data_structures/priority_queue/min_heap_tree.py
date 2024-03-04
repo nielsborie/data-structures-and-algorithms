@@ -4,6 +4,7 @@ class HeapNode:
         self.right: HeapNode = None
         self.data: int = value
 
+
 class MinHeap:
     def __init__(self):
         self.root: HeapNode = None
@@ -39,7 +40,6 @@ class MinHeap:
                 current.data, current.left.data = current.left.data, current.data
 
             # Note: No need to check the right child in this case
-
 
     def extract_min(self) -> int:
         """
@@ -155,6 +155,7 @@ class MinHeap:
                 current = min_node
             else:
                 break
+
 
 if __name__ == "__main__":
     # Exemple d'utilisation

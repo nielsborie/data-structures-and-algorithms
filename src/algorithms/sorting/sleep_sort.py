@@ -1,9 +1,11 @@
 import threading
 import time
 
+
 def append_value(value, output_array):
     time.sleep(value)
     output_array.append(value)
+
 
 def sleep_sort(arr):
     output_array = []
@@ -23,6 +25,7 @@ def sleep_sort(arr):
         thread.join()
 
     return output_array
+
 
 if __name__ == "__main__":
     unsorted_array = [5, 3, 8, 1, 7]

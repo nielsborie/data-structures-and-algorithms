@@ -2,12 +2,13 @@ class ListNode:
     def __init__(self, key: int = -1) -> None:
         self.key = key
         self.next = None
-        
+
+
 class HashSet:
     def __init__(self) -> None:
-        self.MAX_SIZE = 10**4
+        self.MAX_SIZE = 10 ** 4
         self.set = [ListNode() for _ in range(self.MAX_SIZE)]
-    
+
     def add(self, key: int) -> None:
         idx = key % len(self.set)
         cur = self.set[idx]
@@ -16,7 +17,7 @@ class HashSet:
                 return
             cur = cur.next
         cur.next = ListNode(key)
-    
+
     def remove(self, key: int) -> None:
         idx = key % len(self.set)
         cur = self.set[idx]
@@ -25,7 +26,7 @@ class HashSet:
                 cur.next = cur.next.next
                 return
             cur = cur.next
-    
+
     def contains(self, key: int) -> bool:
         idx = key % len(self.set)
         cur = self.set[idx]

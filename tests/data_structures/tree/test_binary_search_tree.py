@@ -1,7 +1,9 @@
+import sys
 import unittest
 from io import StringIO
-import sys
+
 from src.data_structures.tree.binary_search_tree import BinarySearchTree, TreeNode, delete_node
+
 
 class captured_output:
     def __enter__(self):
@@ -11,6 +13,7 @@ class captured_output:
 
     def __exit__(self, *args):
         sys.stdout = self.old_stdout
+
 
 class TestBinarySearchTree(unittest.TestCase):
     def setUp(self):
@@ -99,7 +102,7 @@ class TestBinarySearchTree(unittest.TestCase):
 
         # Then
         self.assertEqual(result, expected_height)
-    
+
     def test_get_height_recursive(self):
         # Given
         expected_height = 3
@@ -109,6 +112,7 @@ class TestBinarySearchTree(unittest.TestCase):
 
         # Then
         self.assertEqual(result, expected_height)
+
 
 class TestTreeNodeDeleteNode(unittest.TestCase):
     def setUp(self):
@@ -242,6 +246,7 @@ class TestDeleteNodeFunction(unittest.TestCase):
         unbalanced_tree = delete_node(unbalanced_tree, 60)
         self.assertEqual(unbalanced_tree.data, 50)
         self.assertEqual(unbalanced_tree.right.right.data, 80)
-        
+
+
 if __name__ == '__main__':
     unittest.main()
