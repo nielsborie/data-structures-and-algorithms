@@ -23,14 +23,15 @@ class LinkedList:
             total += 1
         return total
 
-    def display(self) -> None:
+    def display(self) -> list[int]:
         elems = []
         current = self.head
         while current.next:
             current = current.next
             elems.append(current.data)
         print(elems)
-
+        return elems
+        
     def get(self, index: int) -> int | None:
         if index >= self.length():
             raise IndexError(
